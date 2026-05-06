@@ -4,7 +4,7 @@ import io
 import PyPDF2
 
 # ================= 配置区（务必替换为你的真实 Key）=================
-API_KEY = "c841c492cf0d4211af971b2fcced5830.yQNNk43Ahre9PK84"
+API_KEY = st.secrets["API_KEY"]
 BASE_URL = "https://open.bigmodel.cn/api/paas/v4/"
 MODEL_NAME = "glm-4-flash"
 
