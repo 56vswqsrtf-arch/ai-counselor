@@ -6,6 +6,22 @@ import PyPDF2
 
 # ================= 从 Secrets 读取配置 =================
 API_KEY = st.secrets["API_KEY"]
+import requests
+
+# ================= 从 GitHub 加载永久知识库 =================
+@st.cache_data(ttl=3600)  # 每小时更新一次缓存
+def load_remote_knowledge_base():
+    url = "https://raw.githubusercontent.com/56vswqsrtf-arch/ai-counselor/main/knowledge_base.txt"
+    try:
+        response = requests.get(url, timeout=10)
+        if response.status_code == 200:
+            return response.text.strip()
+    except:
+        pass
+    return ""
+
+if "knowledge_base" not in st.session_state:
+    st.session_state.knowledge_base = load_remote_knowledge_base()
 BASE_URL = "https://open.bigmodel.cn/api/paas/v4/"
 MODEL_NAME = "glm-4-flash"
 ADMIN_PASSWORD = st.secrets.get("ADMIN_PASSWORD", "admin123")  # 默认密码，记得在 Secrets 里改掉
