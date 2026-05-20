@@ -28,7 +28,7 @@ ADMIN_PASSWORD = st.secrets.get("ADMIN_PASSWORD", "admin123")  # 默认密码，
 
 # ================= 页面设置 =================
 st.set_page_config(page_title="AI辅导员", page_icon="🎓")
-st.title("🎓 AI辅导员——你身边的校园智能助手")
+st.title("🎓 AI辅导员——把重复劳动倒给AI，把深度陪伴还给导员")
 st.markdown("你好！我是你的专属AI辅导员。学业压力、心理困惑、生涯规划……随时和我聊聊吧。")
 
 client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
