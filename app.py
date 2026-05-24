@@ -27,9 +27,9 @@ MODEL_NAME = "glm-4-flash"
 ADMIN_PASSWORD = st.secrets.get("ADMIN_PASSWORD", "admin123")  # 默认密码，记得在 Secrets 里改掉
 
 # ================= 页面设置 =================
-st.set_page_config(page_title="AI辅导员", page_icon="🎓")
-st.title("🎓 AI辅导员——把重复劳动倒给AI，把深度陪伴还给导员")
-st.markdown("你好！我是你的专属AI辅导员。学业压力、心理困惑、生涯规划……随时和我聊聊吧。")
+st.set_page_config(page_title="汤小知", page_icon="🎓")
+st.title("🎓 汤小知——把重复劳动倒给AI，把深度陪伴还给导员")
+st.markdown("你好！我是你的专属AI辅导员--汤小知。学业压力、心理困惑、生涯规划……随时和我聊聊吧。")
 
 client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 
@@ -42,10 +42,10 @@ with st.sidebar:
     # ----- 常用场景（对所有人可见）-----
     st.header("📌 常用场景")
     scenes = {
-        "📚 学业压力大，学不进去": "最近学业压力很大，总学不进去，怎么办？",
-        "💼 对就业方向很迷茫": "马上要毕业了，但完全不知道自己喜欢什么工作，很迷茫。",
-        "😟 和室友关系紧张": "我和室友因为作息问题总是闹矛盾，心里很烦，该怎么处理？",
-        "📝 考研还是工作？": "大三了，家里让考研，但自己想早点工作，特别纠结。"
+        "📚 入团入党流程": "想入团入党，但不知道流程",
+        "💼 绩点换算": "怎么看自己上一学期的绩点",
+        "😟 网络诈骗": "防范电信诈骗有哪些步骤呢",
+        "📝 考研还是工作？": "学院近些年考研情况如何"
     }
     for label, text in scenes.items():
         if st.button(label):
