@@ -8,7 +8,7 @@ BASE_URL = "https://open.bigmodel.cn/api/paas/v4/"
 MODEL_NAME = "glm-4-flash"
 
 # ================= 从 GitHub 加载永久知识库 =================
-@st.cache_data(ttl=3600)  # 每小时自动刷新一次，也可重启应用立即生效
+@st.cache_data(ttl=3600)
 def load_remote_knowledge_base():
     url = "https://raw.githubusercontent.com/56vswqsrtf-arch/ai-counselor/main/knowledge_base.txt"
     try:
@@ -25,11 +25,11 @@ if "knowledge_base" not in st.session_state:
 # ================= 页面设置 =================
 st.set_page_config(page_title="汤小知", page_icon="🎓")
 st.title("🎓 汤小知——把重复劳动倒给AI，把深度陪伴还给导员")
-st.markdown("你好！我是你的专属AI辅导员汤小知。学业压力、心理困惑、生涯规划……随时和我聊聊吧。")
+st.markdown("你好！我是你的专属AI辅导员。学业压力、心理困惑、生涯规划……随时和我聊聊吧。")
 
 client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 
-# ================= 侧边栏（仅常用场景 + 知识库状态）=================
+# ================= 侧边栏 =================
 with st.sidebar:
     st.header("📌 常用场景")
     scenes = {
@@ -44,12 +44,29 @@ with st.sidebar:
             st.rerun()
 
     st.markdown("---")
+
+    # ========== 人工窗口 ==========
+    with st.expander("📞 人工窗口"):
+        st.markdown("""
+        **如果需要更深入的帮助，欢迎联系你的辅导员老师：田老师**
+
+        - 📧 **邮箱**：fudaoyuan@example.com  
+        - 📱 **电话/微信**：131-6464-1035  
+        - 🏢 **办公地址**：群贤楼208  
+        - ⏰ **工作时间**：周一至周五 8:00-17:00  
+
+        *我们一直在这里等你，不用犹豫～*
+        """)
+
+    st.markdown("---")
+
+    # 知识库状态
     if st.session_state.knowledge_base:
         st.info(f"📚 当前知识库已加载，共 {len(st.session_state.knowledge_base)} 个字符")
     else:
         st.info("📚 尚未加载知识库，AI将使用通用知识回答")
 
-    st.caption("✨ 创新创业比赛演示版 | 汤小知团队")
+    st.caption("✨ 创新创业比赛演示版 | AI辅导员团队")
 
 # ================= 初始化对话 =================
 if "messages" not in st.session_state:
@@ -71,7 +88,6 @@ if prompt := st.chat_input("请输入你的问题或困惑……"):
 
     with st.chat_message("assistant", avatar="🎓"):
         with st.spinner("AI辅导员正在思考……"):
-            # 如果有知识库，强制 AI 仅根据资料回答
             if st.session_state.knowledge_base:
                 system_with_kb = {"role": "system", "content": f"""你是本校AI辅导员，必须严格且仅根据以下【学校资料】回答学生问题。
 - 如果资料中有相关内容，请直接引用原文回答，不要添加任何其他信息。
