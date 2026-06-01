@@ -25,7 +25,7 @@ if "knowledge_base" not in st.session_state:
 # ================= 页面设置 =================
 st.set_page_config(page_title="汤小知", page_icon="🎓")
 st.title("🎓 汤小知——把重复劳动倒给AI，把深度陪伴还给导员")
-st.markdown("你好！我是你的专属AI辅导员。学业压力、心理困惑、生涯规划……随时和我聊聊吧。")
+st.markdown("你好！我是你的专属AI辅导员汤小知。学业压力、心理困惑、生涯规划……随时和我聊聊吧。")
 
 client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 
@@ -50,7 +50,7 @@ with st.sidebar:
         st.markdown("""
         **如果需要更深入的帮助，欢迎联系你的辅导员老师：田老师**
 
-        - 📧 **邮箱**：fudaoyuan@example.com  
+        - 📧 **邮箱**：877571465@qq.com  
         - 📱 **电话/微信**：131-6464-1035  
         - 🏢 **办公地址**：群贤楼208  
         - ⏰ **工作时间**：周一至周五 8:00-17:00  
@@ -60,19 +60,13 @@ with st.sidebar:
 
     st.markdown("---")
 
-    # 知识库状态
-    if st.session_state.knowledge_base:
-        st.info(f"📚 当前知识库已加载，共 {len(st.session_state.knowledge_base)} 个字符")
-    else:
-        st.info("📚 尚未加载知识库，AI将使用通用知识回答")
-
-    st.caption("✨ 创新创业比赛演示版 | AI辅导员团队")
+    st.caption("✨ 创新创业比赛演示版 | 汤小知团队")
 
 # ================= 初始化对话 =================
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "system", "content": "我是经验丰富、亲切温暖的大学辅导员。我擅长解答学生的学业、心理、就业、校园生活等问题。我的回答要有条理、有同理心，并提供实用的建议。我会使用自然流畅的中文。"},
-        {"role": "assistant", "content": "同学你好！我是你的AI辅导员，有什么想聊的随时告诉我～"}
+        {"role": "system", "content": "我是经验丰富、亲切温暖的AI辅导员汤小知。我擅长解答学生的学业、心理、就业、校园生活等问题。我的回答要有条理、有同理心，并提供实用的建议。我会使用自然流畅的中文。"},
+        {"role": "assistant", "content": "同学你好！我是汤小知，有什么想聊的随时告诉我～"}
     ]
 
 for msg in st.session_state.messages:
@@ -87,7 +81,7 @@ if prompt := st.chat_input("请输入你的问题或困惑……"):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     with st.chat_message("assistant", avatar="🎓"):
-        with st.spinner("AI辅导员正在思考……"):
+        with st.spinner("汤小知正在思考……"):
             if st.session_state.knowledge_base:
                 system_with_kb = {"role": "system", "content": f"""你是本校AI辅导员，必须严格且仅根据以下【学校资料】回答学生问题。
 - 如果资料中有相关内容，请直接引用原文回答，不要添加任何其他信息。
